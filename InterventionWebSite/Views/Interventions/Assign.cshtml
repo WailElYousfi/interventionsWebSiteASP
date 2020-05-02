@@ -1,0 +1,48 @@
+﻿@model InterventionWebSite.Models.Intervention
+
+@{
+    ViewBag.Title = "Affecter une intervention";
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="box box-danger">
+        <div class="box-header with-border">
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.InterventionId)
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IntervenerId, "L'ntervenant", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IntervenerId", null, htmlAttributes: new { @class = "form-control", style = "width: 300px;" })
+                    @Html.ValidationMessageFor(model => model.IntervenerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Affecter" class="btn btn-default" />
+                    <button class="btn btn-danger"><a href="~/Interventions/Index"><font color="white">Annuler</font></a></button>
+
+                </div>
+            </div>
+        </div>
+        </div>
+        }
+
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

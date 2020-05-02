@@ -1,0 +1,77 @@
+﻿@model InterventionWebSite.Models.Request
+
+@{
+    ViewBag.Title = "Détails";
+}
+
+<div class="box box-danger">
+    <div class="box-header with-border">
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-lg-1"></div>
+
+        <div class="col-lg-11">
+
+    <dl class="dl-horizontal">
+
+        <dt>
+            Demande n:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestId)
+        </dd><br />
+
+        <dt>
+            L'employée de réception
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceptionEmployee.Lastname) @Html.DisplayFor(model => model.ReceptionEmployee.Firstname)
+
+        </dd><br />
+
+        <dt>
+            Personnel
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.LastName) @Html.DisplayFor(model => model.Staff.FirstName)
+
+        </dd><br />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeOfCommunication)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeOfCommunication)
+        </dd><br />
+
+        <dt>
+            Date de la demande
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequestDate)
+        </dd><br />
+
+        <dt>
+            @Html.DisplayNameFor(model => model.problems)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.problems)
+        </dd><br />
+
+
+    </dl>
+</div>
+    </div>
+        </div>
+    </div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.RequestId }) |
+    @Html.ActionLink("Liste des demandes", "Index")
+</p>

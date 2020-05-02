@@ -1,0 +1,132 @@
+﻿@model InterventionWebSite.Models.Intervention
+
+@{
+    /**/
+
+    ViewBag.Title = "Ajouter une intervention";
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+}
+
+<script>
+    // call GetRequestDetails action in InterventionsController
+    // this action returns a json contains informations about request
+    $(document).ready(function () {
+        $("#RequestId").change(function () {
+            var a = document.getElementById("RequestId").value;
+            $.get("/Interventions/GetRequestDetails", { RequestId: a }, function (data) {
+                $("#span1").text(data.requestId);
+                $("#span2").text(data.problem);
+                $("#span4").text(data.agencyName + "(Address: " + data.address + ")");
+                $("#span3").text(data.directionName);
+            });
+        });
+    })
+</script>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    
+        List<SelectListItem> listNatures = new List<SelectListItem>();
+        listNatures.Add(new SelectListItem
+        {
+            Text = "Drapeaux",
+            Value = "Drapeaux",
+            Selected = true
+        });
+        listNatures.Add(new SelectListItem
+        {
+            Text = "Eclairages",
+            Value = "Eclairages"
+        });
+        listNatures.Add(new SelectListItem
+        {
+            Text = "Fenêtre",
+            Value = "Fenêtre"
+        });
+        listNatures.Add(new SelectListItem
+        {
+            Text = "Peintures",
+            Value = "Peintures"
+        });
+        listNatures.Add(new SelectListItem
+        {
+            Text = "Portes",
+            Value = "Portes"
+        });
+        listNatures.Add(new SelectListItem
+        {
+            Text = "Autres",
+            Value = "Autres"
+
+        });
+    
+
+
+    <!-- Horizontal Form -->
+    <div class="box box-danger">
+        <div class="box-header with-border">
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.RequestId, "Demande n°", htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-11">
+                    @Html.DropDownList("RequestId", null, htmlAttributes: new { @class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.RequestId, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+                  <div class="row">
+                      <div class="col-lg-2"></div>
+                      <div class="col-lg-10">
+                          <font color="red">Vous avez choisi la demande n: </font>
+                          <span id="span1"></span><br />
+                          <font color="red">Les problèmes sont les suivants: </font>
+                          <span id="span2"></span><br />
+                          <font color="red">La direction: </font>
+                          <span id="span3"></span><br />
+                          <font color="red">L'agence: </font>
+                          <span id="span4"></span>
+                      </div>
+                  </div>
+            <br />
+            
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Nature, htmlAttributes: new { @class = "control-label col-md-1" })
+                <div class="col-md-11">
+                    @Html.DropDownList("Nature", listNatures, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Nature, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+            <div class="form-group">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-1" })
+                        <div class="col-md-11">
+                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+          
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-danger"><font color="white">Ajouter</font></button>
+            <button class="btn btn-default"><a href="~/Interventions/Index"><font color="black">Annuler</font></a></button>
+
+        </div>
+        <!-- /.box-footer -->
+    </div>
+    <br />
+
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,85 @@
+﻿@model InterventionWebSite.Models.Staff
+
+@{
+    ViewBag.Title = "Modifier un agent(Personnel)";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.StaffId)
+
+
+
+    <!-- Horizontal Form -->
+    <div class="box box-danger">
+        <div class="box-header with-border">
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-sm-1 " })
+
+                <div class="col-sm-11">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-sm-1 " })
+
+                <div class="col-sm-11">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-sm-1" })
+
+                <div class="col-sm-11">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-sm-1" })
+
+                <div class="col-sm-11">
+                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.AgencyId, "AgencyId", htmlAttributes: new { @class = "control-label col-sm-1 col-form-label" })
+
+                <div class="col-sm-11">
+                    @Html.DropDownList("AgencyId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.AgencyId, "", new { @class = "text-danger" })
+                </div>
+            </div><br /><br />
+            <div class="form-group">
+                 @Html.LabelFor(model => model.DirectionId, "DirectionId", htmlAttributes: new { @class = "control-label col-sm-1 col-form-label" })
+ 
+            <div class="col-sm-11">
+                @Html.DropDownList("DirectionId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DirectionId, "", new { @class = "text-danger" })
+            </div>
+             </div><br /><br />
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <button type="submit" class="btn btn-danger"><font color="white">Enregistrer</font></button>
+            <button class="btn btn-default"><a href="~/Users/Index"><font color="black">Annuler</font></a></button>
+        </div>
+        <!-- /.box-footer -->
+    </div>
+    <br />
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,86 @@
+﻿@model InterventionWebSite.Models.User
+
+@{
+    ViewBag.Title = "Mon profil";
+}
+
+<!-- Main content -->
+
+<div class="row">
+    <div class="col-md-4">
+
+        <!-- Profile Image -->
+        <div class="box box-danger">
+            <div class="box-body box-profile">
+                <img class="profile-user-img img-responsive img-circle" src="../../Content/assets3/dist/img/user2-160x160.jpg" alt="User profile picture">
+                <h3 class="profile-username text-center">@Html.DisplayFor(model => model.Lastname) @Html.DisplayFor(model => model.Firstname)</h3>
+
+                @if (User.IsInRole("Admin"))
+                {<p class="text-muted text-center">Administrateur</p>}
+                @if (User.IsInRole("Reception employee"))
+                {<p class="text-muted text-center">Employé de réception</p>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Demandes saisies par vous</b> <a class="pull-right"><b>@Html.DisplayFor(model => model.Requests.Count)</b></a>
+                        </li>
+
+                    </ul>
+                }
+                @if (User.IsInRole("Assignment manager"))
+                {<p class="text-muted text-center">Responsable d'affectation</p>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Interventions affectées par vous</b> <a class="pull-right"><b>@Html.DisplayFor(model => model.InterventionsAssignment.Count)</b></a>
+                        </li>
+
+                    </ul>
+                }
+                @if (User.IsInRole("Intervener"))
+                {<p class="text-muted text-center">Intervenant</p>
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Interventions traitées par vous</b> <a class="pull-right"><b>@Html.DisplayFor(model => model.InterventionssIntervener.Count)</b></a>
+                        </li>
+
+                    </ul>
+                }
+                
+                <a href="~/Account/Edit" class="btn btn-danger btn-block"><b>Modifer mes informations</b></a>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- About Me Box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-8">
+        <div class="nav-tabs-custom">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title">About Me</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <strong><i class="glyphicon glyphicon-earphone"></i>  Numéro de téléphone</strong>
+
+                    <p class="text-muted">
+                        @Html.DisplayFor(model => model.Phone)
+                    </p>
+
+                    <hr>
+
+                    <strong><i class="glyphicon glyphicon-envelope"></i>  Adresse éléctronique</strong>
+
+                    <p class="text-muted">@Html.DisplayFor(model => model.Email)</p>
+                    
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->

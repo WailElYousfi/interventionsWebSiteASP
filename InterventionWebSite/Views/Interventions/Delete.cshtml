@@ -1,0 +1,101 @@
+﻿@model InterventionWebSite.Models.Intervention
+
+@{
+    ViewBag.Title = "Supprimer une intervention";
+}
+
+
+<h3>Etes-vous sûr que vous voulez supprimer cette intervention ?</h3>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Agency.AgencyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agency.AgencyName)
+        </dd>
+
+        <dt>
+            Responsable d'affectation
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignmentManager.Firstname) @Html.DisplayFor(model => model.AssignmentManager.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direction.DirectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direction.DirectionName)
+        </dd>
+
+        <dt>
+            L'intervenant
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Intervener.Firstname) @Html.DisplayFor(model => model.Intervener.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Request.TypeOfCommunication)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Request.TypeOfCommunication)
+        </dd>
+
+        <dt>
+            statut
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State.StateName)
+        </dd>
+
+        <dt>
+            Date de l'action
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActionDate)
+        </dd>
+
+        <dt>
+            date de clôture
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClosingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-default" /> |
+            @Html.ActionLink("Liste des interventions", "Index")
+        </div>
+    }
+</div>

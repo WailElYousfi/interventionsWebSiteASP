@@ -1,0 +1,94 @@
+﻿@model IEnumerable<InterventionWebSite.Models.Staff>
+
+@{
+    ViewBag.Title = "Liste du personnel";
+}
+
+<button class="btn btn-danger btn-sm"><a href="~/Staffs/Create"><font color="white">Ajouter un agent(personnel)</font></a></button><br /><br />
+
+<div class="box box-danger">
+    <div class="box-header with-border">
+        <h3 class="box-title">Personnel</h3>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Agency.AgencyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direction.DirectionName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.StaffId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.StaffId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.StaffId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>  
+                    <th>
+                        @Html.DisplayNameFor(model => model.Agency.AgencyName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direction.DirectionName)
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<br />

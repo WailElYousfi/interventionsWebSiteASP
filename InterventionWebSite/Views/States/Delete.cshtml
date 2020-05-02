@@ -1,0 +1,38 @@
+﻿@model InterventionWebSite.Models.State
+
+@{
+    ViewBag.Title = "Supprimer un statut";
+}
+
+
+<h3>Etes-vous sûr que vous voulez supprimer ce statut?</h3>
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Supprimer" class="btn btn-default" /> |
+            @Html.ActionLink("Liste des statuts", "Index")
+        </div>
+    }
+</div>

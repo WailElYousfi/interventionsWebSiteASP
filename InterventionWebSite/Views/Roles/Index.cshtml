@@ -1,0 +1,62 @@
+﻿@model IEnumerable<InterventionWebSite.Models.Role>
+
+@{
+    ViewBag.Title = "Liste des roles";
+}
+
+<button class="btn btn-danger btn-sm"><a href="~/Roles/Create"><font color="white">Ajouter un role</font></a></button><br /><br />
+
+<div class="box box-danger">
+    <div class="box-header with-border">
+        <h3 class="box-title">Les roles</h3>
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoleName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RoleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @if (item.RoleName != "Admin" && item.RoleName != "Intervener" && item.RoleName != "Assignment manager" && item.RoleName != "Reception employee")
+                            {
+                            @Html.ActionLink("Edit", "Edit", new { id = item.RoleId }) <font> |</font>
+                            @Html.ActionLink("Details", "Details", new { id = item.RoleId }) <font> |</font>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.RoleId })
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RoleName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<br />

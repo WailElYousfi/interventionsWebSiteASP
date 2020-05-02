@@ -1,0 +1,95 @@
+﻿@model InterventionWebSite.Models.Intervention
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Agency.AgencyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Agency.AgencyName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignmentManager)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignmentManager.Firstname) @Html.DisplayFor(model => model.AssignmentManager.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direction.DirectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direction.DirectionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Intervener)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Intervener.Firstname) @Html.DisplayFor(model => model.Intervener.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Request.TypeOfCommunication)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Request.TypeOfCommunication)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State.StateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClosingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClosingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifier", "Edit", new { id = Model.InterventionId }) |
+    @Html.ActionLink("Liste des interventions", "Index")
+</p>

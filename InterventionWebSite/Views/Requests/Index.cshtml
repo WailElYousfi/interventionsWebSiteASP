@@ -1,0 +1,116 @@
+﻿@model IEnumerable<InterventionWebSite.Models.Request>
+
+@{
+    ViewBag.Title = "Liste des demandes";
+}
+
+<button class="btn btn-danger btn-sm"><a href="~/Requests/Create"><font color="white">Ajouter une demande</font></a></button><br /><br />
+
+<div class="box box-danger">
+    <div class="box-header with-border">
+        @if (User.IsInRole("Admin"))
+        {<h3 class="box-title">les demandes</h3>}
+        @if (User.IsInRole("Reception employee"))
+        {<h3 class="box-title">Les demandes enregistrées par vous</h3>}
+    </div>
+    <div class="box-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Date de la demande
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.problems)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TypeOfCommunication)
+                    </th>
+                    <th>
+                        Employé de réception
+                    </th>
+                    <th>
+                        Personnel
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    if (item.ReceptionEmployee.Email == User.Identity.Name && User.IsInRole("Reception employee"))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.problems)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeOfCommunication)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReceptionEmployee.Lastname) @Html.DisplayFor(modelItem => item.ReceptionEmployee.Firstname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Staff.LastName) @Html.DisplayFor(modelItem => item.Staff.FirstName)
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.RequestId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.RequestId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.RequestId })
+                            </td>
+                        </tr>
+                    }
+                    if (User.IsInRole("Admin"))
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.problems)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TypeOfCommunication)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReceptionEmployee.Lastname) @Html.DisplayFor(modelItem => item.ReceptionEmployee.Firstname)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Staff.LastName) @Html.DisplayFor(modelItem => item.Staff.FirstName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.RequestId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.RequestId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.RequestId })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        Date de la demande
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.problems)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TypeOfCommunication)
+                    </th>
+                    <th>
+                        Employé de réception
+                    </th>
+                    <th>
+                        Personnel
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

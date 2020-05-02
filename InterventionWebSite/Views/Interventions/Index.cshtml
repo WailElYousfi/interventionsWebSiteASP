@@ -1,0 +1,534 @@
+﻿@model IEnumerable<InterventionWebSite.Models.Intervention>
+
+@{
+    ViewBag.Title = "Liste des interventions";
+}
+
+@if (User.IsInRole("Admin") || User.IsInRole("Reception employee"))
+{
+    <button class="btn btn-danger btn-sm"><a href="~/Interventions/Create"><font color="white">Créer une intervention</font></a></button><br /><br />
+
+}
+
+@if (User.IsInRole("Admin") || User.IsInRole("Reception employee") || User.IsInRole("Assignment manager"))
+{
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title">Interventions à affecter</h3>
+        </div>
+        <div class="box-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.State)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nature)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Agency)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Request)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Direction)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (item.State.StateName == "A affecter")
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State.StateName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nature)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Request.RequestId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                                </td>
+                                <td>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Reception employee"))
+                                    {@Html.ActionLink("Edit", "Edit", new { id = item.InterventionId })}|
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Reception employee") || User.IsInRole("Assignment manager"))
+                                    {@Html.ActionLink("Details", "Details", new { id = item.InterventionId })}|
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Reception employee"))
+                                    {@Html.ActionLink("Delete", "Delete", new { id = item.InterventionId })}|
+                                    @if (User.IsInRole("Assignment manager"))
+                                    {@Html.ActionLink("Assign", "Assign", new { id = item.InterventionId })}
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.State)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nature)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Agency)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Request)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Direction)
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <br />
+}
+
+<div class="box box-danger">
+    <div class="box-header with-border">
+        <h3 class="box-title">Interventions en cours de traitement</h3>
+    </div>
+    <div class="box-body">
+        <table id="example11" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.State)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nature)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Agency)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Request)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AssignmentManager)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direction)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Intervener)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (User.IsInRole("Admin") || User.IsInRole("Reception employee"))
+                {
+                    foreach (var item in Model)
+                    {
+                        if (item.State.StateName == "En cours")
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State.StateName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActionDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nature)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Request.RequestId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignmentManager.Firstname) @Html.DisplayFor(modelItem => item.AssignmentManager.Lastname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Intervener.Firstname) @Html.DisplayFor(modelItem => item.Intervener.Lastname)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.InterventionId }) }
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.InterventionId })
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+
+                @if (User.IsInRole("Assignment manager"))
+                {
+                    foreach (var item in Model)
+                    {
+                        if (item.State.StateName == "En cours" && item.AssignmentManager.Email == User.Identity.Name) //juste les interventions affectees par lui
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State.StateName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActionDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nature)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Request.RequestId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignmentManager.Firstname) @Html.DisplayFor(modelItem => item.AssignmentManager.Lastname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Intervener.Firstname) @Html.DisplayFor(modelItem => item.Intervener.Lastname)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.InterventionId }) |
+                                    @Html.ActionLink("Close", "Close", new { id = item.InterventionId }, new { onclick = "return confirm('Are sure wants to close this intervention ?');" }))
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+
+                @if (User.IsInRole("Intervener"))
+                {
+                    foreach (var item in Model)
+                    {
+                        if (item.State.StateName == "En cours" && item.Intervener.Email == User.Identity.Name) //juste les interventions affectees à lui
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State.StateName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ActionDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nature)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Request.RequestId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignmentManager.Firstname) @Html.DisplayFor(modelItem => item.AssignmentManager.Lastname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Intervener.Firstname) @Html.DisplayFor(modelItem => item.Intervener.Lastname)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Details", "Details", new { id = item.InterventionId })
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.State)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ActionDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nature)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Agency)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Request)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AssignmentManager)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Direction)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Intervener)
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<br />
+
+    <div class="box box-danger">
+        <div class="box-header with-border">
+            <h3 class="box-title">Interventions cloturées</h3>
+        </div>
+        <div class="box-body">
+            <table id="example111" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.State)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActionDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ClosingDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nature)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Agency)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Request)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AssignmentManager)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Direction)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Intervener)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (User.IsInRole("Assignment manager"))
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (item.State.StateName == "Cloturee" && item.AssignmentManager.Email == User.Identity.Name)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.State.StateName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActionDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClosingDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nature)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Request.RequestId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AssignmentManager.Firstname) @Html.DisplayFor(modelItem => item.AssignmentManager.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Intervener.Firstname) @Html.DisplayFor(modelItem => item.Intervener.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId })|
+                                        @Html.ActionLink("Details", "Details", new { id = item.InterventionId })|
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.InterventionId })|
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    @if (User.IsInRole("Admin") || User.IsInRole("Reception employee"))
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (item.State.StateName == "Cloturee")
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.State.StateName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActionDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClosingDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nature)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Request.RequestId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AssignmentManager.Firstname) @Html.DisplayFor(modelItem => item.AssignmentManager.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Intervener.Firstname) @Html.DisplayFor(modelItem => item.Intervener.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.InterventionId })|
+                                        @Html.ActionLink("Details", "Details", new { id = item.InterventionId })|
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.InterventionId })|
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                    @if (User.IsInRole("Intervener"))
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (item.State.StateName == "Cloturee" && item.Intervener.Email == User.Identity.Name)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.State.StateName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActionDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ClosingDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Nature)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Agency.AgencyName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Request.RequestId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AssignmentManager.Firstname) @Html.DisplayFor(modelItem => item.AssignmentManager.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Direction.DirectionName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Intervener.Firstname) @Html.DisplayFor(modelItem => item.Intervener.Lastname)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Details", "Details", new { id = item.InterventionId })
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.State)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActionDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ClosingDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nature)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Agency)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Request)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AssignmentManager)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Direction)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Intervener)
+                        </th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
